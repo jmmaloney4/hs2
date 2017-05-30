@@ -2,6 +2,8 @@ package hs;
 
 import java.util.Arrays;
 
+import hs.spell.TheCoin;
+
 public class Game {
 
 	Player p1;
@@ -19,17 +21,28 @@ public class Game {
 		this.p1.deck.Shuffle();
 		this.p2.deck.Shuffle();
 		
-		Card[] p1m = this.p1.deck.Mulligan(true);
-		Card[] p2m = this.p2.deck.Mulligan(false);
+		// see classes
+		
+		Card[] p1m = this.p1.deck.MulliganHand(true);
+		Card[] p2m = this.p2.deck.MulliganHand(false);
 		
 		p1.StartingMulligan(this, p1m);
 		p2.StartingMulligan(this, p2m);
 		
-		for (int k = 0; k < p1m.length; k++) {
-			if (!p1.KeepCard(this, p1m[k])) {
-				Card oc = p1m[k];
-				p1m[k] = p1.deck.Draw();
-				p1.deck.AddCard(oc);
+		this.RunMulligan(p1, p1m);
+		this.RunMulligan(p2, p2m);
+		
+		// Give p2 the coin
+		p2m = Arrays.copyOf(p2m, p2m.length + 1);
+		p2m[p2m.length - 1] = new TheCoin();
+	}
+	
+	void RunMulligan(Player p, Card[] hand) {
+		for (int k = 0; k < hand.length; k++) {
+			if (!p.KeepCard(this, hand[k])) {
+				Card oc = hand[k];
+				hand[k] = p.deck.Draw();
+				p.deck.AddCard(oc);
 			}
 		}
 	}

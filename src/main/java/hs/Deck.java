@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import hs.minion.BloodfenRaptor;
-import hs.spell.TheCoin;
 
 public class Deck {
 
@@ -55,7 +54,7 @@ public class Deck {
 		this.cards = nc;
 	}
 	
-	Card[] Mulligan(boolean p1) {
+	Card[] MulliganHand(boolean p1) {
 		Card[] rv;
 		int len;
 		if (p1) {
@@ -67,12 +66,6 @@ public class Deck {
 		rv = new Card[len];
 		for (int k = 0; k < len; k++) {
 			rv[k] = this.Draw();
-		}
-		
-		if (!p1) {
-			Card[] nrv = Arrays.copyOf(rv, rv.length + 1);
-			nrv[rv.length] = new TheCoin();
-			rv = nrv;
 		}
 		
 		return rv;
