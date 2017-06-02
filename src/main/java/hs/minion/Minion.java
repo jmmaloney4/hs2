@@ -11,5 +11,4 @@ public abstract class Minion extends Card {
 	static int Health;
 	static MinionRace Race;
 	
-	
 }
