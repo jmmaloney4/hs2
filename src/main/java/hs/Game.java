@@ -31,8 +31,8 @@ public class Game {
 		p1.StartingMulligan(this, p1m);
 		p2.StartingMulligan(this, p2m);
 		
-		this.RunMulligan(p1, p1m);
-		this.RunMulligan(p2, p2m);
+		//this.RunMulligan(p1, p1m);
+		//this.RunMulligan(p2, p2m);
 		
 		// Give p2 the coin
 		p2m = Arrays.copyOf(p2m, p2m.length + 1);
@@ -41,6 +41,7 @@ public class Game {
 		p1.StartingHand(this, p1m);
 		p2.StartingHand(this, p2m);
 		
+		turn:
 		while (true) {
 			Player p;
 			if ((turn % 2) == 0) {
@@ -55,9 +56,24 @@ public class Game {
 			while (true) {
 				PlayerAction action = p.NextAction(this, turn);
 				
-				if (action == PlayerAction.PLAY_CARD) {
+				switch (action) {
+				case PLAY_CARD:
+					Card cp = p.CardToPlay(this, turn);
 					
-				}
+					System.out.println("Playing a " + cp.getName());
+					
+				case END_TURN:
+					turn++;
+					continue turn;
+				case HERO_COMBAT:
+					break;
+				case MINION_COMBAT:
+					break;
+				case USE_HERO_POWER:
+					break;
+				default:
+					break;
+				} 
 			
 			}
 		}

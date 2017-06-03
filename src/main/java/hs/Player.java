@@ -10,12 +10,14 @@ public abstract class Player {
 	
 	Card[] hand;
 	
-	void StartingGame(Game g) {}
+	abstract void StartingGame(Game g);
 	
-	void StartingMulligan(Game g, Card[] hand) {}
-	boolean KeepCard(Game g, Card c) { return true; }
-	void StartingHand(Game g, Card[] hand) {}
+	abstract void StartingMulligan(Game g, Card[] hand);
+	abstract boolean KeepCard(Game g, Card c);
+	abstract void StartingHand(Game g, Card[] hand);
 	
-	void StartingTurn(Game g, int turn, Card c) {}
-	PlayerAction NextAction(Game g, int turn) { return null; }
+	abstract void StartingTurn(Game g, int turn, Card c);
+	abstract PlayerAction NextAction(Game g, int turn);
+	
+	abstract Card CardToPlay(Game g, int turn);
 }

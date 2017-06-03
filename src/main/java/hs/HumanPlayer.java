@@ -78,7 +78,7 @@ public class HumanPlayer extends Player {
 			String s = scan.nextLine();
 			try {
 				int i = Integer.parseInt(s);
-				
+
 				switch(i) {
 				case 1:
 					return PlayerAction.PLAY_CARD;
@@ -91,10 +91,31 @@ public class HumanPlayer extends Player {
 				case 5:
 					return PlayerAction.END_TURN;
 				}
-				
+
 			} catch (NumberFormatException e) {
 				// just try again
 			}
+		}
+	}
+
+	@Override
+	Card CardToPlay(Game g, int turn) {
+		while (true) {
+			System.out.println("Hand: " + this.hand.length);
+			for (int k = 0; k < this.hand.length; k++) {
+				System.out.println(k + " " + this.hand[k].getName());
+			}
+
+			String s = scan.nextLine();
+			try {
+				int i = Integer.parseInt(s);
+				if (i < this.hand.length) {
+					return this.hand[i];
+				}
+			} catch (NumberFormatException e) {
+				// just try again
+			}
+
 		}
 	}
 

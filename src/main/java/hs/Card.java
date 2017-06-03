@@ -7,6 +7,8 @@ public abstract class Card {
 	static String Text;
 	static CardClass Class;
 	
+	int cost;
+	
 	public String getName() {
 		return Name;
 	}
