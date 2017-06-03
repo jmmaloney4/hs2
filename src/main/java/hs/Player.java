@@ -28,6 +28,8 @@ public class Player {
 	public Player(PlayerInterface iface, Deck d) {
 		this.iface = iface;
 		this.deck = d;
+		
+		this.board = new Card[0];
 	}
 
 	public void StartGame(Game g, boolean p1) {
@@ -75,6 +77,8 @@ public class Player {
 				int i = iface.CardToPlayHandIndex(g, this, turn);
 				System.out.println("Playing a " + this.hand[i].getName());
 				
+				Card cp = hand[i];
+				
 				Card[] nh = new Card[hand.length - 1];
 				for (int k = 0; k < i; k++) {
 					nh[k] = hand[k];
@@ -84,6 +88,9 @@ public class Player {
 				}
 				
 				hand = nh;
+				
+				board = Arrays.copyOf(board, board.length + 1);
+				board[board.length - 1] = cp;
 				
 				break;
 			case END_TURN:

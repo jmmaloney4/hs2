@@ -1,9 +1,5 @@
 package hs;
 
-import java.util.Arrays;
-
-import hs.spell.TheCoin;
-
 public class Game {
 	
 	Player p1;
@@ -47,7 +43,19 @@ public class Game {
 		p2.StartingHand(this, p2m);
 		*/
 		
-		p2.TakeTurn(this, 0);
+		String[] op = {"Hello, World0", "Hello, World1", "Hello, World2"};
+		CardPlayability[] p = {CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT};
+		
+		HumanPlayer.GetOptionChoice(op, p);
+		
+		turn = 0;
+		
+		p1.TakeTurn(this, turn);
+		turn++;
+		p2.TakeTurn(this, turn);
+		turn++;
+		p1.TakeTurn(this, turn);
+		
 	}
 	
 }

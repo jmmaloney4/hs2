@@ -1,6 +1,5 @@
 package hs;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HumanPlayer implements PlayerInterface {
@@ -114,4 +113,33 @@ public class HumanPlayer implements PlayerInterface {
 		}
 	}
 
+	static int GetOptionChoice(String[] options, CardPlayability[] avaliable) {
+		if ((avaliable != null) && (options.length != avaliable.length)) {
+			return -1;
+		}
+		
+		for (int k = 0; k < options.length; k++) {
+			String line = String.format("%d ", k);
+			switch (avaliable[k]) {
+			case NO:
+				line += "\u2718"; // ✘
+				break;
+			case YES:
+				line += "\u2714"; // ✔
+				break;
+			case WITH_EFFECT:
+				line += "\u00BB"; // »
+				break;
+			default:
+				break;
+			}
+			
+			line += (" " + options[k]);
+			
+			System.out.println(line);
+		}
+		
+		return -1;
+	}
+	
 }
