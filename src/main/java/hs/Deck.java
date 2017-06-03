@@ -56,15 +56,9 @@ public class Deck {
 	
 	Card[] MulliganHand(boolean p1) {
 		Card[] rv;
-		int len;
-		if (p1) {
-			len = 3;
-		} else {
-			len = 4;
-		}
 		
-		rv = new Card[len];
-		for (int k = 0; k < len; k++) {
+		rv = new Card[p1 ? 3 : 4];
+		for (int k = 0; k < rv.length; k++) {
 			rv[k] = this.Draw();
 		}
 		

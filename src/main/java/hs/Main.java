@@ -9,8 +9,11 @@ public class Main {
         Deck d1 = new Deck("./mage");
         Deck d2 = new Deck("./mage");
         
-        HumanPlayer p1 = new HumanPlayer(d1);
-        HumanPlayer p2 = new HumanPlayer(d2);
+        HumanPlayer pi1 = new HumanPlayer();
+        HumanPlayer pi2 = new HumanPlayer();
+        
+        Player p1 = new Player(pi1, d1);
+        Player p2 = new Player(pi2, d2);
         
         Game game = new Game(p1, p2);
         game.Start();

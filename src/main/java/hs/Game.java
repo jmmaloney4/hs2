@@ -17,6 +17,11 @@ public class Game {
 	}
 	
 	void Start() {
+		
+		p1.StartGame(this, true);
+		p2.StartGame(this, false);
+		
+		/*
 		this.p1.StartingGame(this);
 		this.p2.StartingGame(this);
 		
@@ -40,53 +45,9 @@ public class Game {
 		
 		p1.StartingHand(this, p1m);
 		p2.StartingHand(this, p2m);
+		*/
 		
-		turn:
-		while (true) {
-			Player p;
-			if ((turn % 2) == 0) {
-				p = p1;
-			} else {
-				p = p2;
-			}
-			
-			Card c = p.deck.Draw();
-			p.StartingTurn(this, turn, c);
-			
-			while (true) {
-				PlayerAction action = p.NextAction(this, turn);
-				
-				switch (action) {
-				case PLAY_CARD:
-					Card cp = p.CardToPlay(this, turn);
-					
-					System.out.println("Playing a " + cp.getName());
-					
-				case END_TURN:
-					turn++;
-					continue turn;
-				case HERO_COMBAT:
-					break;
-				case MINION_COMBAT:
-					break;
-				case USE_HERO_POWER:
-					break;
-				default:
-					break;
-				} 
-			
-			}
-		}
-	}
-	
-	void RunMulligan(Player p, Card[] hand) {
-		for (int k = 0; k < hand.length; k++) {
-			if (!p.KeepCard(this, hand[k])) {
-				Card oc = hand[k];
-				hand[k] = p.deck.Draw();
-				p.deck.AddCard(oc);
-			}
-		}
+		p1.TakeTurn(this, 0);
 	}
 	
 }

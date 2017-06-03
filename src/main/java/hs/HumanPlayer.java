@@ -3,22 +3,21 @@ package hs;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer implements PlayerInterface {
 
 	Scanner scan;
 
-	HumanPlayer(Deck d) {
+	public HumanPlayer() {
 		scan = new Scanner(System.in);
-		this.deck = d;
 	}
 
 	@Override
-	void StartingGame(Game g) {
+	public void StartingGame(Game g) {
 		System.out.println("Starting Game");
 	}
 
 	@Override
-	void StartingMulligan(Game g, Card[] hand) {
+	public void StartingMulligan(Game g, Player p, Card[] hand) {
 		System.out.print("Mulligan Hand: [");
 		for (int k = 0; k < hand.length; k++) {
 			System.out.print(hand[k].getName());
@@ -30,7 +29,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	boolean KeepCard(Game g, Card card) {
+	public boolean KeepCard(Game g, Player p, Card card) {
 		while (true) {
 			System.out.print("Keep " + card.getName() + "? ");
 			System.out.flush();
@@ -46,7 +45,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	void StartingHand(Game g, Card[] hand) {
+	public void StartingHand(Game g, Player p, Card[] hand) {
 		System.out.print("Starting Hand: [");
 		for (int k = 0; k < hand.length; k++) {
 			System.out.print(hand[k].getName());
@@ -55,19 +54,15 @@ public class HumanPlayer extends Player {
 			}
 		}
 		System.out.println("]");
-
-		this.hand = hand.clone();
 	}
 
 	@Override
-	void StartingTurn(Game g, int turn, Card c) {
+	public void StartingTurn(Game g, Player p, int turn, Card c) {
 		System.out.println("Starting Turn " + turn % 2);
-		this.hand = Arrays.copyOf(this.hand, this.hand.length + 1);
-		this.hand[this.hand.length - 1] = c;
 	}
 
 	@Override
-	PlayerAction NextAction(Game g, int turn) {
+	public PlayerAction NextAction(Game g, Player p, int turn) {
 		while (true) {
 			System.out.println("Play Card: 1");
 			System.out.println("Use Hero Power: 2");
@@ -99,18 +94,18 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	Card CardToPlay(Game g, int turn) {
+	public Card CardToPlay(Game g, Player p, int turn) {
 		while (true) {
-			System.out.println("Hand: " + this.hand.length);
-			for (int k = 0; k < this.hand.length; k++) {
-				System.out.println(k + " " + this.hand[k].getName());
+			System.out.println("Hand: " + p.getHand().length);
+			for (int k = 0; k < p.getHand().length; k++) {
+				System.out.println(k + " " + p.getHand()[k].getName());
 			}
 
 			String s = scan.nextLine();
 			try {
 				int i = Integer.parseInt(s);
-				if (i < this.hand.length) {
-					return this.hand[i];
+				if (i < p.getHand().length) {
+					return p.getHand()[i];
 				}
 			} catch (NumberFormatException e) {
 				// just try again
