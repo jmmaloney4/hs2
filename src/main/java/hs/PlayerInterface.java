@@ -11,6 +11,6 @@ public interface PlayerInterface {
 	void StartingTurn(Game g, Player p, int turn, Card c);
 	PlayerAction NextAction(Game g, Player p, int turn);
 
-	Card CardToPlay(Game g, Player p, int turn);
+	int CardToPlayHandIndex(Game g, Player p, int turn);
 
 }

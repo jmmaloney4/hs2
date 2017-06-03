@@ -1,6 +1,7 @@
 package hs.minion;
 
 import hs.CardClass;
+import hs.CardType;
 
 public class BloodfenRaptor extends Minion {
 
@@ -11,6 +12,7 @@ public class BloodfenRaptor extends Minion {
 	static final MinionRace Race = MinionRace.BEAST;
 	static final int Attack = 3;
 	static final int Health = 2;
+	static final CardType Type = CardType.MINION;
 	
 	
 	public BloodfenRaptor() {
@@ -21,6 +23,51 @@ public class BloodfenRaptor extends Minion {
 	@Override
 	public String getName() {
 		return Name;
+	}
+
+	@Override
+	public int getNormalCost() {
+		return Cost;
+	}
+
+	@Override
+	public String getText() {
+		return Text;
+	}
+
+	@Override
+	public CardClass getCardClass() {
+		return Class;
+	}
+
+	@Override
+	public CardType getType() {
+		return Type;
+	}
+
+	@Override
+	public int getNormalHealth() {
+		return Health;
+	}
+
+	@Override
+	public int getNormalAttack() {
+		return Attack;
+	}
+
+	@Override
+	public int getCurrentHealth() {
+		return this.health;
+	}
+
+	@Override
+	public int getCurrentAttack() {
+		return this.attack;
+	}
+
+	@Override
+	public int getMaxHealth() {
+		return this.maxHealth;
 	}
 	
 }

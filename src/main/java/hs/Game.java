@@ -47,7 +47,7 @@ public class Game {
 		p2.StartingHand(this, p2m);
 		*/
 		
-		p1.TakeTurn(this, 0);
+		p2.TakeTurn(this, 0);
 	}
 	
 }

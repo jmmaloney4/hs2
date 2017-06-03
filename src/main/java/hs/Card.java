@@ -6,10 +6,13 @@ public abstract class Card {
 	static int Cost;
 	static String Text;
 	static CardClass Class;
+	static CardType Type;
 	
 	int cost;
 	
-	public String getName() {
-		return Name;
-	}
+	public abstract String getName();
+	public abstract int getNormalCost();
+	public abstract String getText();
+	public abstract CardClass getCardClass();
+	public abstract CardType getType();
 }

@@ -63,16 +63,28 @@ public class Player {
 	public void TakeTurn(Game g, int turn) {
 		Card c = deck.Draw();
 		iface.StartingTurn(g, this, turn, c);
+		
+		hand = Arrays.copyOf(hand, hand.length + 1);
+		hand[hand.length - 1] = c;
 
 		while (true) {
 			PlayerAction action = iface.NextAction(g, this, turn);
 
 			switch (action) {
 			case PLAY_CARD:
-				Card cp = iface.CardToPlay(g, this, turn);
-
-				System.out.println("Playing a " + cp.getName());∂
-
+				int i = iface.CardToPlayHandIndex(g, this, turn);
+				System.out.println("Playing a " + this.hand[i].getName());
+				
+				Card[] nh = new Card[hand.length - 1];
+				for (int k = 0; k < i; k++) {
+					nh[k] = hand[k];
+				}
+				for (int k = i; k < nh.length; k++) {
+					nh[k] = hand[k + 1];
+				}
+				
+				hand = nh;
+				
 				break;
 			case END_TURN:
 				return;

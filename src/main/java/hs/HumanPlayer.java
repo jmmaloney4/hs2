@@ -94,7 +94,7 @@ public class HumanPlayer implements PlayerInterface {
 	}
 
 	@Override
-	public Card CardToPlay(Game g, Player p, int turn) {
+	public int CardToPlayHandIndex(Game g, Player p, int turn) {
 		while (true) {
 			System.out.println("Hand: " + p.getHand().length);
 			for (int k = 0; k < p.getHand().length; k++) {
@@ -105,7 +105,7 @@ public class HumanPlayer implements PlayerInterface {
 			try {
 				int i = Integer.parseInt(s);
 				if (i < p.getHand().length) {
-					return p.getHand()[i];
+					return i;
 				}
 			} catch (NumberFormatException e) {
 				// just try again
