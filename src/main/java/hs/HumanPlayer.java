@@ -29,18 +29,7 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public boolean KeepCard(Game g, Player p, Card card) {
-		while (true) {
-			System.out.print("Keep " + card.getName() + "? ");
-			System.out.flush();
-
-			String s = scan.nextLine();
-
-			if (s.startsWith("y") || s.startsWith("Y")) {
-				return true;
-			} else if (s.startsWith("n") || s.startsWith("N")) {
-				return false;
-			}
-		}
+		return getBooleanChoice("Keep " + card.getName());
 	}
 
 	@Override
@@ -62,11 +51,11 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public PlayerAction NextAction(Game g, Player p, int turn) {
-		
+
 		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
-		
-		int i = HumanPlayer.GetOptionChoice(options, null);
-		
+
+		int i = HumanPlayer.getOptionChoice(options, null);
+
 		switch(i) {
 		case 0:
 			return PlayerAction.PLAY_CARD;
@@ -93,7 +82,7 @@ public class HumanPlayer implements PlayerInterface {
 			options[k] = p.getHand()[k].getName();
 		}
 
-		return GetOptionChoice(options, null);
+		return getOptionChoice(options, null);
 	}
 
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -105,12 +94,13 @@ public class HumanPlayer implements PlayerInterface {
 	public static final String ANSI_PURPLE = "\u001B[35m";
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
-	
+
 	public static final String UNICODE_X = "\u2718"; // ✘
 	public static final String UNICODE_CHECK = "\u2714"; // ✔
 	public static final String UNICODE_ARROW = "\u00BB"; // »
 
-	static int GetOptionChoice(String[] options, CardPlayability[] avaliable) {
+	// TODO: Don't allow users to choose an option that is CardPlayability.NO
+	static int getOptionChoice(String[] options, CardPlayability[] avaliable) {
 		if ((avaliable != null) && (options.length != avaliable.length)) {
 			return -1;
 		}
@@ -158,4 +148,16 @@ public class HumanPlayer implements PlayerInterface {
 		return rv;
 	}
 
+	static boolean getBooleanChoice(String question) {
+		while (true) {
+			System.out.print(question + "? [y/n]: ");
+			String s = scan.nextLine();
+
+			if (s.startsWith("y") || s.startsWith("Y")) {
+				return true;
+			} else if (s.startsWith("n") || s.startsWith("N")) {
+				return false;
+			}
+		}
+	}
 }

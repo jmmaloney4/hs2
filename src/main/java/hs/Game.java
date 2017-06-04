@@ -17,36 +17,10 @@ public class Game {
 		p1.StartGame(this, true);
 		p2.StartGame(this, false);
 		
-		/*
-		this.p1.StartingGame(this);
-		this.p2.StartingGame(this);
-		
-		this.p1.deck.Shuffle();
-		this.p2.deck.Shuffle();
-		
-		// see classes
-		
-		Card[] p1m = this.p1.deck.MulliganHand(true);
-		Card[] p2m = this.p2.deck.MulliganHand(false);
-		
-		p1.StartingMulligan(this, p1m);
-		p2.StartingMulligan(this, p2m);
-		
-		//this.RunMulligan(p1, p1m);
-		//this.RunMulligan(p2, p2m);
-		
-		// Give p2 the coin
-		p2m = Arrays.copyOf(p2m, p2m.length + 1);
-		p2m[p2m.length - 1] = new TheCoin();
-		
-		p1.StartingHand(this, p1m);
-		p2.StartingHand(this, p2m);
-		*/
-		
 		String[] op = {"Hello, World0", "Hello, World1", "Hello, World2"};
 		CardPlayability[] p = {CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT};
 		
-		HumanPlayer.GetOptionChoice(op, p);
+		HumanPlayer.getOptionChoice(op, p);
 		
 		turn = 0;
 		
@@ -55,7 +29,8 @@ public class Game {
 		p2.TakeTurn(this, turn);
 		turn++;
 		p1.TakeTurn(this, turn);
-		
+		turn++;
+		p2.TakeTurn(this, turn);
 	}
 	
 }

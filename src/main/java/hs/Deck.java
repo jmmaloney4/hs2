@@ -1,7 +1,5 @@
 package hs;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -13,11 +11,13 @@ public class Deck {
 	Card[] drawn;
 	
 	Deck(String path) throws IOException {
+		/*
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		String line;
 		while ((line = reader.readLine()) != null) {
 			System.out.println(line);
 		}
+		*/
 		
 		this.cards = new Card[30];
 		for (int k = 0; k < this.cards.length; k++) {
@@ -25,8 +25,6 @@ public class Deck {
 		}
 		
 		this.drawn = new Card[0];
-		
-		reader.close();
 	}
 	
 	void Shuffle() {
