@@ -17,26 +17,22 @@ public class BlessingOfMight extends Spell {
 
 	@Override
 	public int getNormalCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Cost;
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return Text;
 	}
 
 	@Override
 	public CardClass getCardClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return Class;
 	}
 
 	@Override
 	public CardType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return CardType.SPELL;
 	}
 	
 }

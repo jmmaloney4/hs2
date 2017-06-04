@@ -5,7 +5,8 @@ public enum MinionRace {
 	BEAST("Beast"),
 	DRAGON("Dragon"),
 	ELEMENTAL("Elemental"),
-	MURLOC("Murloc");
+	MURLOC("Murloc"),
+	NEUTRAL("Neutral");
 	
 	String name;
 	

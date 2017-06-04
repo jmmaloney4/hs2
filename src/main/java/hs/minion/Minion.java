@@ -15,8 +15,24 @@ public abstract class Minion extends Card {
 	public abstract int getNormalHealth();
 	public abstract int getNormalAttack();
 	
-	public abstract int getCurrentHealth();
-	public abstract int getCurrentAttack();
-	public abstract int getMaxHealth();
+	public Minion() {
+		attack = getNormalAttack();
+		health = getNormalHealth();
+		maxHealth = getNormalHealth();
+	}
 	
+	public int getAttack() {
+		return attack;
+	}
+	public int getHealth() {
+		return health;
+	}
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s (%d Mana, %d/%d)", getName(), getCost(), getAttack(), getHealth());
+	}
 }

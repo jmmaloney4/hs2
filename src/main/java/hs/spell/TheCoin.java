@@ -7,7 +7,7 @@ public class TheCoin extends Spell {
 	
 	static final String Name = "The Coin";
 	static final int Cost = 1;
-	static final CardClass Class = hs.CardClass.PALADIN;
+	static final CardClass Class = hs.CardClass.NEUTRAL;
 	static final String Text = "Gain 1 Mana Crystal this turn only.";
 	
 	@Override
@@ -17,26 +17,22 @@ public class TheCoin extends Spell {
 
 	@Override
 	public int getNormalCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Cost;
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return Text;
 	}
 
 	@Override
 	public CardClass getCardClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return Class;
 	}
 
 	@Override
 	public CardType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return CardType.SPELL;
 	}
 	
 }

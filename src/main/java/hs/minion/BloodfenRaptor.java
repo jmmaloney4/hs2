@@ -14,12 +14,6 @@ public class BloodfenRaptor extends Minion {
 	static final int Health = 2;
 	static final CardType Type = CardType.MINION;
 	
-	
-	public BloodfenRaptor() {
-		this.attack = Attack;
-		this.health = Health;
-	}
-	
 	@Override
 	public String getName() {
 		return Name;
@@ -53,21 +47,5 @@ public class BloodfenRaptor extends Minion {
 	@Override
 	public int getNormalAttack() {
 		return Attack;
-	}
-
-	@Override
-	public int getCurrentHealth() {
-		return this.health;
-	}
-
-	@Override
-	public int getCurrentAttack() {
-		return this.attack;
-	}
-
-	@Override
-	public int getMaxHealth() {
-		return this.maxHealth;
-	}
-	
+	}	
 }

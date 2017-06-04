@@ -2,8 +2,24 @@ package hs;
 
 import java.util.Scanner;
 
+
 public class HumanPlayer implements PlayerInterface {
 
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLACK = "\u001B[30m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_WHITE = "\u001B[37m";
+	public static final String ANSI_CLEAR = "\033[2J\033[;H";
+
+	public static final String UNICODE_X = "\u2718"; // ✘
+	public static final String UNICODE_CHECK = "\u2714"; // ✔
+	public static final String UNICODE_ARROW = "\u00BB"; // »
+	
 	static Scanner scan = new Scanner(System.in);
 
 	public HumanPlayer() {
@@ -17,31 +33,17 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public void StartingMulligan(Game g, Player p, Card[] hand) {
-		System.out.print("Mulligan Hand: [");
-		for (int k = 0; k < hand.length; k++) {
-			System.out.print(hand[k].getName());
-			if ((k + 1) < hand.length) {
-				System.out.print(", ");
-			}
-		}
-		System.out.println("]");
+		System.out.println("Mulligan Hand: " + handToString(hand));
 	}
 
 	@Override
 	public boolean KeepCard(Game g, Player p, Card card) {
-		return getBooleanChoice("Keep " + card.getName());
+		return getBooleanChoice("Keep " + card.toString());
 	}
 
 	@Override
 	public void StartingHand(Game g, Player p, Card[] hand) {
-		System.out.print("Starting Hand: [");
-		for (int k = 0; k < hand.length; k++) {
-			System.out.print(hand[k].getName());
-			if ((k + 1) < hand.length) {
-				System.out.print(", ");
-			}
-		}
-		System.out.println("]");
+		System.out.println("Starting Hand: " + handToString(hand));
 	}
 
 	@Override
@@ -79,25 +81,11 @@ public class HumanPlayer implements PlayerInterface {
 		// CardPlayability[] play = new CardPlayability[p.getHand().length];
 
 		for (int k = 0; k < p.getHand().length; k++) {
-			options[k] = p.getHand()[k].getName();
+			options[k] = p.getHand()[k].toString();
 		}
 
 		return getOptionChoice(options, null);
 	}
-
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_BLACK = "\u001B[30m";
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_GREEN = "\u001B[32m";
-	public static final String ANSI_YELLOW = "\u001B[33m";
-	public static final String ANSI_BLUE = "\u001B[34m";
-	public static final String ANSI_PURPLE = "\u001B[35m";
-	public static final String ANSI_CYAN = "\u001B[36m";
-	public static final String ANSI_WHITE = "\u001B[37m";
-
-	public static final String UNICODE_X = "\u2718"; // ✘
-	public static final String UNICODE_CHECK = "\u2714"; // ✔
-	public static final String UNICODE_ARROW = "\u00BB"; // »
 
 	// TODO: Don't allow users to choose an option that is CardPlayability.NO
 	static int getOptionChoice(String[] options, CardPlayability[] avaliable) {
@@ -137,6 +125,9 @@ public class HumanPlayer implements PlayerInterface {
 			try {
 				int i = Integer.parseInt(s);
 				if ((i >= 0) && (i < options.length)) {
+					if (avaliable != null && avaliable[i] == CardPlayability.NO) {
+						continue;
+					}
 					rv = i;
 					break;
 				}
@@ -159,5 +150,17 @@ public class HumanPlayer implements PlayerInterface {
 				return false;
 			}
 		}
+	}
+	
+	static String handToString(Card[] hand) {
+		String s = "[";
+		for (int k = 0; k < hand.length; k++) {
+			s += hand[k].toString();
+			if ((k + 1) < hand.length) {
+				s += ", ";
+			}
+		}
+		s += "]";
+		return s;
 	}
 }

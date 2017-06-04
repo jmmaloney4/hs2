@@ -71,11 +71,11 @@ public class Player {
 
 		while (true) {
 			PlayerAction action = iface.NextAction(g, this, turn);
-
+			
 			switch (action) {
 			case PLAY_CARD:
 				int i = iface.CardToPlayHandIndex(g, this, turn);
-				System.out.println("Playing a " + this.hand[i].getName());
+				System.out.println("Playing " + this.hand[i].getName());
 				
 				Card cp = hand[i];
 				
@@ -104,9 +104,6 @@ public class Player {
 			default:
 				break;
 			} 
-
 		}
-
 	}
-
 }

@@ -41,7 +41,7 @@ public class Deck {
 		this.cards = nc;
 		this.drawn = nd;
 		
-		System.out.println("Drew a " + rv.getName());
+		// System.out.println("Drew a " + rv.getName());
 		
 		return rv;
 	}

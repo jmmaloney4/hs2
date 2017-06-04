@@ -1,7 +1,7 @@
 package hs;
 
 public interface PlayerInterface {
-
+	
 	void StartingGame(Game g);
 
 	void StartingMulligan(Game g, Player p, Card[] hand);

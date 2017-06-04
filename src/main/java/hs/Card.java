@@ -15,4 +15,17 @@ public abstract class Card {
 	public abstract String getText();
 	public abstract CardClass getCardClass();
 	public abstract CardType getType();
+	
+	public Card() {
+		cost = getNormalCost();
+	}
+	
+	public int getCost() {
+		return cost;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s (%d Mana)", getName(), getCost());
+	}
 }
