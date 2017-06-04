@@ -54,9 +54,38 @@ public class HumanPlayer implements PlayerInterface {
 	@Override
 	public PlayerAction NextAction(Game g, Player p, int turn) {
 
+		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, To Be Locked Mana: %d", p.manaCrystals, p.mana, p.lockedMana, p.toBeLockedMana));
+		
 		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
-
-		int i = HumanPlayer.getOptionChoice(options, null);
+		CardPlayability[] play = {CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.YES};
+		
+		for (int k = 0; k < p.getHand().length; k++) {
+			switch (p.getHand()[k].getPlayabilityInCurrentState(g, p)) {
+			case WITH_EFFECT:
+				if (play[0] != CardPlayability.WITH_EFFECT) {
+					play[0] = CardPlayability.WITH_EFFECT;
+				}
+				break;
+			case YES:
+				if (play[0] == CardPlayability.NO) {
+					play[0] = CardPlayability.YES;
+				}
+				break;
+			case NO:
+				break;
+			default:
+				break;
+			}
+		}
+		
+		for (int k = 0; k < 4; k++) {
+			if (play[k] != CardPlayability.NO) {
+				play[4] = CardPlayability.WITH_EFFECT;
+				break;
+			}
+		}
+		
+		int i = HumanPlayer.getOptionChoice(options, play);
 
 		switch(i) {
 		case 0:
@@ -76,21 +105,20 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public int CardToPlayHandIndex(Game g, Player p, int turn) {
-
 		String[] options = new String[p.getHand().length];
-		// CardPlayability[] play = new CardPlayability[p.getHand().length];
+		CardPlayability[] play = new CardPlayability[p.getHand().length];
 
 		for (int k = 0; k < p.getHand().length; k++) {
 			options[k] = p.getHand()[k].toString();
+			play[k] = p.getHand()[k].getPlayabilityInCurrentState(g, p);
 		}
 
-		return getOptionChoice(options, null);
+		return getOptionChoice(options, play);
 	}
 
-	// TODO: Don't allow users to choose an option that is CardPlayability.NO
 	static int getOptionChoice(String[] options, CardPlayability[] avaliable) {
 		if ((avaliable != null) && (options.length != avaliable.length)) {
-			return -1;
+			throw new IllegalStateException("options.length != avaliable.length");
 		}
 
 		for (int k = 0; k < options.length; k++) {

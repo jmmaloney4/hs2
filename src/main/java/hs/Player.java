@@ -10,6 +10,7 @@ public class Player {
 	int usedMana;
 	int lockedMana;
 	int toBeLockedMana;
+	int manaCrystals;
 	int mana;
 
 	PlayerInterface iface;
@@ -63,6 +64,15 @@ public class Player {
 	}
 
 	public void TakeTurn(Game g, int turn) {
+		if (manaCrystals < 10) {
+			manaCrystals += 1;
+		}
+		mana = manaCrystals;
+		usedMana = 0;
+		lockedMana = toBeLockedMana;
+		mana -= lockedMana;
+		toBeLockedMana = 0;
+		
 		Card c = deck.Draw();
 		iface.StartingTurn(g, this, turn, c);
 		
@@ -75,9 +85,14 @@ public class Player {
 			switch (action) {
 			case PLAY_CARD:
 				int i = iface.CardToPlayHandIndex(g, this, turn);
-				System.out.println("Playing " + this.hand[i].getName());
+				if (getHand()[i].getPlayabilityInCurrentState(g, this) == CardPlayability.NO) {
+					throw new IllegalStateException("Can't play this card " + getHand()[i].toString());
+				}
+				
+				System.out.println("Playing " + getHand()[i].getName());
 				
 				Card cp = hand[i];
+				mana -= cp.getCost();
 				
 				Card[] nh = new Card[hand.length - 1];
 				for (int k = 0; k < i; k++) {

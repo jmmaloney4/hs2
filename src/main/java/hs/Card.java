@@ -28,4 +28,12 @@ public abstract class Card {
 	public String toString() {
 		return String.format("%s (%d Mana)", getName(), getCost());
 	}
+	
+	public CardPlayability getPlayabilityInCurrentState(Game g, Player p) {
+		if (p.mana >= getCost()) {
+			return CardPlayability.YES;
+		} else {
+			return CardPlayability.NO;
+		}
+	}
 }
