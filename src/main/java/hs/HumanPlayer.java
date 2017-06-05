@@ -33,7 +33,7 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public void StartingMulligan(Game g, Player p, Card[] hand) {
-		System.out.println("Mulligan Hand: " + handToString(hand));
+		System.out.println("Mulligan Hand: " + cardsToString(hand));
 	}
 
 	@Override
@@ -43,22 +43,23 @@ public class HumanPlayer implements PlayerInterface {
 
 	@Override
 	public void StartingHand(Game g, Player p, Card[] hand) {
-		System.out.println("Starting Hand: " + handToString(hand));
+		System.out.println("Starting Hand: " + cardsToString(hand));
 	}
 
 	@Override
 	public void StartingTurn(Game g, Player p, int turn, Card c) {
-		System.out.println("Starting Turn " + turn % 2);
+		System.out.println("Starting Turn " + turn / 2);
 	}
 
 	@Override
 	public PlayerAction NextAction(Game g, Player p, int turn) {
 
-		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, To Be Locked Mana: %d", p.manaCrystals, p.mana, p.lockedMana, p.toBeLockedMana));
+		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, Overloaded Mana: %d", p.getManaCrystals(), p.getAvaliableMana(), p.getLockedMana(), p.getOverloadedMana()));
 		
 		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
 		CardPlayability[] play = {CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.YES};
 		
+		// Check to see if any cards are playable and if they are WITH_EFFECT
 		for (int k = 0; k < p.getHand().length; k++) {
 			switch (p.getHand()[k].getPlayabilityInCurrentState(g, p)) {
 			case WITH_EFFECT:
@@ -78,6 +79,11 @@ public class HumanPlayer implements PlayerInterface {
 			}
 		}
 		
+		// Check to see if hero power is playable / unused
+		
+		
+		// Check to see if End Turn should be YES (green, no more possible actions) 
+		// or WITH_EFFECT (yellow, still more actions)
 		for (int k = 0; k < 4; k++) {
 			if (play[k] != CardPlayability.NO) {
 				play[4] = CardPlayability.WITH_EFFECT;
@@ -180,15 +186,32 @@ public class HumanPlayer implements PlayerInterface {
 		}
 	}
 	
-	static String handToString(Card[] hand) {
+	static String cardsToString(Card[] cards) {
 		String s = "[";
-		for (int k = 0; k < hand.length; k++) {
-			s += hand[k].toString();
-			if ((k + 1) < hand.length) {
+		for (int k = 0; k < cards.length; k++) {
+			s += cards[k].toString();
+			if ((k + 1) < cards.length) {
 				s += ", ";
 			}
 		}
 		s += "]";
 		return s;
+	}
+
+	@Override
+	public int WhereToPlayCardIndex(Game g, Player p, int turn) {
+		System.out.println("Board: " + cardsToString(p.getBoard()));
+		if (p.getBoard().length == 0) {
+			return 0;
+		}
+		
+		String[] options = new String[p.getBoard().length + 1];
+		options[0] = "Left Side";
+		options[p.getBoard().length] = "Right Side";
+		for (int k = 1; k < p.getBoard().length; k++) {
+			options[k] = "Between " + p.getBoard()[k - 1].toString() + " and " + p.getBoard()[k].toString();
+		}
+		
+		return getOptionChoice(options, null);
 	}
 }

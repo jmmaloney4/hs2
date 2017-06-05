@@ -12,8 +12,8 @@ public class Main {
         HumanPlayer pi1 = new HumanPlayer();
         HumanPlayer pi2 = new HumanPlayer();
         
-        Player p1 = new Player(pi1, d1);
-        Player p2 = new Player(pi2, d2);
+        Player p1 = new Player(pi1, d1, CardClass.MAGE);
+        Player p2 = new Player(pi2, d2, CardClass.MAGE);
         
         Game game = new Game(p1, p2);
         game.Start();

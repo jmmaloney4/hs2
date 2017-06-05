@@ -2,17 +2,85 @@ package hs;
 
 import java.util.Arrays;
 
+import hs.hero.Fireblast;
 import hs.spell.TheCoin;
 
 public class Player {
 
 	Deck deck;
-	int usedMana;
-	int lockedMana;
-	int toBeLockedMana;
-	int manaCrystals;
+	
 	int mana;
-
+	int usedMana;
+	int manaCrystals;
+	int bonusMana;
+	int lockedMana;
+	int overloadedMana;
+	
+	int getManaCrystals() {
+		return manaCrystals;
+	}
+	
+	int getAvaliableMana() {
+		return mana;
+	}
+	
+	int getLockedMana() {
+		return lockedMana;
+	}
+	
+	int getOverloadedMana() {
+		return overloadedMana;
+	}
+	
+	int getUsedMana() {
+		return usedMana;
+	}
+	
+	int getBonusMana() {
+		return bonusMana;
+	}
+	
+	void manaNextTurn() {
+		if (manaCrystals < 10) {
+			manaCrystals += 1;
+		}
+		mana = manaCrystals;
+		usedMana = 0;
+		bonusMana = 0;
+		lockedMana = overloadedMana;
+		mana -= lockedMana;
+		overloadedMana = 0;
+	}
+	
+	void spendMana(int i) {
+		if (i > getAvaliableMana()) {
+			throw new IllegalArgumentException(String.format("Cannot spend %d mana, only have %d avaliable", i, getAvaliableMana()));
+		}
+		mana -= i;
+		usedMana += i;
+	}
+	
+	void overloadMana(int o) {
+		overloadedMana += o;
+	}
+	
+	boolean usedHeroPower;
+	
+	boolean hasUsedHeroPower() {
+		return usedHeroPower;
+	}
+	
+	boolean canUseHeroPower() {
+		if (!hasUsedHeroPower() && (getHeroPower().getCost() <= getAvaliableMana())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	CardClass heroClass;
+	Card heroPower;
+	
 	PlayerInterface iface;
 
 	Card[] hand;
@@ -25,10 +93,23 @@ public class Player {
 	Card[] getBoard() {
 		return board;
 	}
+	
+	CardClass getHeroClass() {
+		return heroClass;
+	}
+	
+	Card getHeroPower() {
+		return heroPower;
+	}
 
-	public Player(PlayerInterface iface, Deck d) {
+	
+	
+	public Player(PlayerInterface iface, Deck d, CardClass cls) {
 		this.iface = iface;
 		this.deck = d;
+		
+		this.heroClass = cls;
+		this.heroPower = new Fireblast();
 		
 		this.board = new Card[0];
 	}
@@ -36,10 +117,12 @@ public class Player {
 	public void StartGame(Game g, boolean p1) {
 		iface.StartingGame(g);
 
-		usedMana = 0;
+		manaCrystals = 0;
 		lockedMana = 0;
-		toBeLockedMana = 0;
+		overloadedMana = 0;
 		mana = 0;
+		
+		usedHeroPower = false;
 
 		hand = deck.MulliganHand(p1);
 		iface.StartingMulligan(g, this, hand);
@@ -64,14 +147,6 @@ public class Player {
 	}
 
 	public void TakeTurn(Game g, int turn) {
-		if (manaCrystals < 10) {
-			manaCrystals += 1;
-		}
-		mana = manaCrystals;
-		usedMana = 0;
-		lockedMana = toBeLockedMana;
-		mana -= lockedMana;
-		toBeLockedMana = 0;
 		
 		Card c = deck.Draw();
 		iface.StartingTurn(g, this, turn, c);
@@ -89,10 +164,10 @@ public class Player {
 					throw new IllegalStateException("Can't play this card " + getHand()[i].toString());
 				}
 				
-				System.out.println("Playing " + getHand()[i].getName());
+				System.out.println("Playing " + getHand()[i].toString());
 				
 				Card cp = hand[i];
-				mana -= cp.getCost();
+				spendMana(cp.getCost());
 				
 				Card[] nh = new Card[hand.length - 1];
 				for (int k = 0; k < i; k++) {
@@ -104,8 +179,18 @@ public class Player {
 				
 				hand = nh;
 				
-				board = Arrays.copyOf(board, board.length + 1);
-				board[board.length - 1] = cp;
+				int pi = iface.WhereToPlayCardIndex(g, this, turn);
+				
+				Card[] nb = new Card[getBoard().length + 1]; 
+				for (int k = 0; k < pi; k++) {
+					nb[k] = board[k];
+				}
+				nb[pi] = cp;
+				for (int k = pi + 1; k < nb.length; k++) {
+					nb[k] = getBoard()[k - 1];
+				}
+				
+				board = nb;
 				
 				break;
 			case END_TURN:

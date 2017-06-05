@@ -1,7 +1,6 @@
 package hs.spell;
 
 import hs.CardClass;
-import hs.CardType;
 
 public class TheCoin extends Spell {
 	
@@ -29,10 +28,4 @@ public class TheCoin extends Spell {
 	public CardClass getCardClass() {
 		return Class;
 	}
-
-	@Override
-	public CardType getType() {
-		return CardType.SPELL;
-	}
-	
 }

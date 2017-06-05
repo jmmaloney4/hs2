@@ -24,13 +24,12 @@ public class Game {
 		
 		turn = 0;
 		
-		p1.TakeTurn(this, turn);
-		turn++;
-		p2.TakeTurn(this, turn);
-		turn++;
-		p1.TakeTurn(this, turn);
-		turn++;
-		p2.TakeTurn(this, turn);
+		while (true) {
+			p1.TakeTurn(this, turn);
+			turn++;
+			p2.TakeTurn(this, turn);
+			turn++;
+		}
 	}
 	
 }

@@ -1,6 +1,7 @@
 package hs.minion;
 
 import hs.Card;
+import hs.CardType;
 
 public abstract class Minion extends Card {
 	
@@ -29,6 +30,11 @@ public abstract class Minion extends Card {
 	}
 	public int getMaxHealth() {
 		return maxHealth;
+	}
+	
+	@Override
+	public CardType getType() {
+		return CardType.MINION;
 	}
 	
 	@Override
