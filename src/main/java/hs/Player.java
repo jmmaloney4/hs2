@@ -68,6 +68,8 @@ public class Player {
 		overloadedMana += o;
 	}
 	
+	CardClass heroClass;
+	Card heroPower;
 	boolean usedHeroPower;
 	
 	boolean hasUsedHeroPower() {
@@ -82,8 +84,13 @@ public class Player {
 		}
 	}
 	
-	CardClass heroClass;
-	Card heroPower;
+	Card getHeroPower() {
+		return heroPower;
+	}
+	
+	CardClass getHeroClass() {
+		return heroClass;
+	}
 	
 	PlayerInterface iface;
 
@@ -98,16 +105,43 @@ public class Player {
 		return board;
 	}
 	
-	CardClass getHeroClass() {
-		return heroClass;
+	Card pullCardFromHand(int index) {
+		Card rv = hand[index];
+		
+		Card[] nh = new Card[hand.length - 1];
+		for (int k = 0; k < index; k++) {
+			nh[k] = hand[k];
+		}
+		for (int k = index; k < nh.length; k++) {
+			nh[k] = hand[k + 1];
+		}
+		hand = nh;
+		
+		return rv;
 	}
 	
-	Card getHeroPower() {
-		return heroPower;
+	void addCardToHand(Card c) {
+		hand = Arrays.copyOf(hand, hand.length + 1);
+		hand[hand.length - 1] = c;
+	}
+	
+	void insertCardOntoBoard(Card c, int index) {
+		if ((index < 0) || (index > getBoard().length)) {
+			throw new IndexOutOfBoundsException(String.format("%d out of bounds for board size %d", index, getBoard().length));
+		}
+		
+		Card[] nb = new Card[getBoard().length + 1]; 
+		for (int k = 0; k < index; k++) {
+			nb[k] = getBoard()[k];
+		}
+		nb[index] = c;
+		for (int k = index + 1; k < nb.length; k++) {
+			nb[k] = getBoard()[k - 1];
+		}
+		
+		board = nb;
 	}
 
-	
-	
 	public Player(PlayerInterface iface, Deck d, CardClass cls) {
 		this.iface = iface;
 		this.deck = d;
@@ -154,9 +188,6 @@ public class Player {
 		
 		Card c = deck.Draw();
 		iface.StartingTurn(g, this, turn, c);
-		
-		hand = Arrays.copyOf(hand, hand.length + 1);
-		hand[hand.length - 1] = c;
 
 		while (true) {
 			PlayerAction action = iface.NextAction(g, this, turn);
@@ -169,32 +200,8 @@ public class Player {
 				}
 				
 				System.out.println("Playing " + getHand()[i].toString());
-				
-				Card cp = hand[i];
-				spendMana(cp.getCost());
-				
-				Card[] nh = new Card[hand.length - 1];
-				for (int k = 0; k < i; k++) {
-					nh[k] = hand[k];
-				}
-				for (int k = i; k < nh.length; k++) {
-					nh[k] = hand[k + 1];
-				}
-				
-				hand = nh;
-				
-				int pi = iface.WhereToPlayCardIndex(g, this, turn);
-				
-				Card[] nb = new Card[getBoard().length + 1]; 
-				for (int k = 0; k < pi; k++) {
-					nb[k] = board[k];
-				}
-				nb[pi] = cp;
-				for (int k = pi + 1; k < nb.length; k++) {
-					nb[k] = getBoard()[k - 1];
-				}
-				
-				board = nb;
+
+				insertCardOntoBoard(pullCardFromHand(i), iface.WhereToPlayCardIndex(g, this, turn));
 				
 				break;
 			case END_TURN:
