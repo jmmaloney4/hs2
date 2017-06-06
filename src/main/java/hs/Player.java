@@ -59,7 +59,8 @@ public class Player {
 
 	void spendMana(int i) {
 		if (i > getAvaliableMana()) {
-			throw new IllegalArgumentException(String.format("Cannot spend %d mana, only have %d avaliable", i, getAvaliableMana()));
+			throw new IllegalArgumentException(
+					String.format("Cannot spend %d mana, only have %d avaliable", i, getAvaliableMana()));
 		}
 		mana -= i;
 		usedMana += i;
@@ -120,10 +121,11 @@ public class Player {
 
 	void insertMinionOntoBoard(Minion m, int index) {
 		if ((index < 0) || (index > getBoard().length)) {
-			throw new IndexOutOfBoundsException(String.format("%d out of bounds for board size %d", index, getBoard().length));
+			throw new IndexOutOfBoundsException(
+					String.format("%d out of bounds for board size %d", index, getBoard().length));
 		}
 
-		Minion[] nb = new Minion[getBoard().length + 1]; 
+		Minion[] nb = new Minion[getBoard().length + 1];
 		for (int k = 0; k < index; k++) {
 			nb[k] = getBoard()[k];
 		}
@@ -161,13 +163,9 @@ public class Player {
 		iface.startingMulligan(g, this, hand);
 
 		/*
-		for (int k = 0; k < hand.length; k++) {
-			if (!iface.KeepCard(g, this, hand[k])) {
-				Card oc = hand[k];
-				hand[k] = deck.Draw();
-				deck.AddCard(oc);
-			}
-		}
+		 * for (int k = 0; k < hand.length; k++) { if (!iface.KeepCard(g, this,
+		 * hand[k])) { Card oc = hand[k]; hand[k] = deck.Draw();
+		 * deck.AddCard(oc); } }
 		 */
 
 		// Give p2 the coin
@@ -215,32 +213,31 @@ public class Player {
 				break;
 			default:
 				break;
-			} 
+			}
 		}
 	}
 
 	CardPlayability canPlayCard(Game g) {
 		CardPlayability rv = CardPlayability.NO;
 
-		loop:
-			for (int k = 0; k < getHand().length; k++) {
-				switch (getHand()[k].getPlayabilityInCurrentState(g, this)) {
-				case WITH_EFFECT:
-					if (rv != CardPlayability.WITH_EFFECT) {
-						rv = CardPlayability.WITH_EFFECT;
-					}
-					break loop;
-				case YES:
-					if (rv == CardPlayability.NO) {
-						rv = CardPlayability.YES;
-					}
-					break;
-				case NO:
-					break;
-				default:
-					break;
+		loop: for (int k = 0; k < getHand().length; k++) {
+			switch (getHand()[k].getPlayabilityInCurrentState(g, this)) {
+			case WITH_EFFECT:
+				if (rv != CardPlayability.WITH_EFFECT) {
+					rv = CardPlayability.WITH_EFFECT;
 				}
+				break loop;
+			case YES:
+				if (rv == CardPlayability.NO) {
+					rv = CardPlayability.YES;
+				}
+				break;
+			case NO:
+				break;
+			default:
+				break;
 			}
+		}
 
 		return rv;
 	}
@@ -252,7 +249,7 @@ public class Player {
 			return CardPlayability.NO;
 		}
 	}
-	
+
 	CardPlayability canDoMinionCombat(Game g) {
 		for (int k = 0; k < getBoard().length; k++) {
 			if (getBoard()[k].canAttack()) {
@@ -261,7 +258,7 @@ public class Player {
 		}
 		return CardPlayability.NO;
 	}
-	
+
 	CardPlayability canDoHeroCombat(Game g) {
 		return CardPlayability.NO;
 	}

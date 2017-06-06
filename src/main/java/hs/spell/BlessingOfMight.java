@@ -38,5 +38,5 @@ public class BlessingOfMight extends Spell {
 	public CardType getType() {
 		return CardType.SPELL;
 	}
-	
+
 }

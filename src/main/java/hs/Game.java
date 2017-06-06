@@ -5,29 +5,29 @@
 package hs;
 
 public class Game {
-	
+
 	Player p1;
 	Player p2;
-	
+
 	int turn;
-	
+
 	Game(Player p1, Player p2) {
 		this.p1 = p1;
 		this.p2 = p2;
 	}
-	
+
 	void start() {
-		
+
 		p1.startGame(this, true);
 		p2.startGame(this, false);
-		
-		String[] op = {"Hello, World0", "Hello, World1", "Hello, World2"};
-		CardPlayability[] p = {CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT};
-		
+
+		String[] op = { "Hello, World0", "Hello, World1", "Hello, World2" };
+		CardPlayability[] p = { CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT };
+
 		HumanPlayer.getOptionChoice(op, p);
-		
+
 		turn = 0;
-		
+
 		while (true) {
 			p1.takeTurn(this, turn);
 			turn++;
@@ -35,5 +35,5 @@ public class Game {
 			turn++;
 		}
 	}
-	
+
 }

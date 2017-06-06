@@ -14,7 +14,7 @@ public class Fireblast extends HeroPower {
 	static String Text = "Deal 1 Damage.";
 	static CardClass Class = CardClass.MAGE;
 	static CardType Type;
-	
+
 	@Override
 	public String getName() {
 		return Name;

@@ -15,7 +15,7 @@ public class BloodfenRaptor extends Minion {
 	static final MinionRace Race = MinionRace.BEAST;
 	static final int Attack = 3;
 	static final int Health = 2;
-	
+
 	@Override
 	public String getName() {
 		return Name;
@@ -44,5 +44,5 @@ public class BloodfenRaptor extends Minion {
 	@Override
 	public int getNormalAttack() {
 		return Attack;
-	}	
+	}
 }

@@ -6,7 +6,6 @@ package hs;
 
 import java.util.Scanner;
 
-
 public class HumanPlayer implements PlayerInterface {
 
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -23,7 +22,7 @@ public class HumanPlayer implements PlayerInterface {
 	public static final String UNICODE_X = "\u2718"; // ✘
 	public static final String UNICODE_CHECK = "\u2714"; // ✔
 	public static final String UNICODE_ARROW = "\u00BB"; // »
-	
+
 	static Scanner scan = new Scanner(System.in);
 
 	public HumanPlayer() {
@@ -58,12 +57,15 @@ public class HumanPlayer implements PlayerInterface {
 	@Override
 	public PlayerAction nextAction(Game g, Player p, int turn) {
 
-		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, Overloaded Mana: %d", p.getManaCrystals(), p.getAvaliableMana(), p.getLockedMana(), p.getOverloadedMana()));
-		
-		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
-		CardPlayability[] play = {p.canPlayCard(g), p.canUseHeroPower(g), p.canDoMinionCombat(g), p.canDoHeroCombat(g), CardPlayability.YES};
-		
-		// Check to see if End Turn should be YES (green, no more possible actions) 
+		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, Overloaded Mana: %d",
+				p.getManaCrystals(), p.getAvaliableMana(), p.getLockedMana(), p.getOverloadedMana()));
+
+		String[] options = { "Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn" };
+		CardPlayability[] play = { p.canPlayCard(g), p.canUseHeroPower(g), p.canDoMinionCombat(g), p.canDoHeroCombat(g),
+				CardPlayability.YES };
+
+		// Check to see if End Turn should be YES (green, no more possible
+		// actions)
 		// or WITH_EFFECT (yellow, still more actions)
 		for (int k = 0; k < 4; k++) {
 			if (play[k] != CardPlayability.NO) {
@@ -71,10 +73,10 @@ public class HumanPlayer implements PlayerInterface {
 				break;
 			}
 		}
-		
+
 		int i = HumanPlayer.getOptionChoice(options, play);
 
-		switch(i) {
+		switch (i) {
 		case 0:
 			return PlayerAction.PLAY_CARD;
 		case 1:
@@ -114,7 +116,7 @@ public class HumanPlayer implements PlayerInterface {
 			if (avaliable != null) {
 				switch (avaliable[k]) {
 				case NO:
-					line += ANSI_RED + " " + UNICODE_X + ANSI_RESET; 
+					line += ANSI_RED + " " + UNICODE_X + ANSI_RESET;
 					break;
 				case YES:
 					line += ANSI_GREEN + " " + UNICODE_CHECK + ANSI_RESET;
@@ -166,7 +168,7 @@ public class HumanPlayer implements PlayerInterface {
 			}
 		}
 	}
-	
+
 	static String cardsToString(Card[] cards) {
 		String s = "[";
 		for (int k = 0; k < cards.length; k++) {
@@ -185,14 +187,14 @@ public class HumanPlayer implements PlayerInterface {
 		if (p.getBoard().length == 0) {
 			return 0;
 		}
-		
+
 		String[] options = new String[p.getBoard().length + 1];
 		options[0] = "Left Side";
 		options[p.getBoard().length] = "Right Side";
 		for (int k = 1; k < p.getBoard().length; k++) {
 			options[k] = "Between " + p.getBoard()[k - 1].toString() + " and " + p.getBoard()[k].toString();
 		}
-		
+
 		return getOptionChoice(options, null);
 	}
 }
