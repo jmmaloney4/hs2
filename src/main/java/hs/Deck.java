@@ -31,11 +31,11 @@ public class Deck {
 		this.drawn = new Card[0];
 	}
 	
-	void Shuffle() {
+	void shuffle() {
 		
 	}
 	
-	Card Draw() {
+	Card draw() {
 		Card rv = this.cards[this.cards.length - 1];
 		
 		Card[] nc = Arrays.copyOf(this.cards, this.cards.length - 1);
@@ -50,18 +50,18 @@ public class Deck {
 		return rv;
 	}
 	
-	void AddCard(Card c) {
+	void addCard(Card c) {
 		Card[] nc = Arrays.copyOf(this.cards, this.cards.length + 1);
 		nc[this.cards.length] = c;
 		this.cards = nc;
 	}
 	
-	Card[] MulliganHand(boolean p1) {
+	Card[] mulliganHand(boolean p1) {
 		Card[] rv;
 		
 		rv = new Card[p1 ? 3 : 4];
 		for (int k = 0; k < rv.length; k++) {
-			rv[k] = this.Draw();
+			rv[k] = this.draw();
 		}
 		
 		return rv;

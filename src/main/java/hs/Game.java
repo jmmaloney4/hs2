@@ -16,10 +16,10 @@ public class Game {
 		this.p2 = p2;
 	}
 	
-	void Start() {
+	void start() {
 		
-		p1.StartGame(this, true);
-		p2.StartGame(this, false);
+		p1.startGame(this, true);
+		p2.startGame(this, false);
 		
 		String[] op = {"Hello, World0", "Hello, World1", "Hello, World2"};
 		CardPlayability[] p = {CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT};
@@ -29,9 +29,9 @@ public class Game {
 		turn = 0;
 		
 		while (true) {
-			p1.TakeTurn(this, turn);
+			p1.takeTurn(this, turn);
 			turn++;
-			p2.TakeTurn(this, turn);
+			p2.takeTurn(this, turn);
 			turn++;
 		}
 	}

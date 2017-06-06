@@ -31,57 +31,37 @@ public class HumanPlayer implements PlayerInterface {
 	}
 
 	@Override
-	public void StartingGame(Game g) {
+	public void startingGame(Game g) {
 		System.out.println("Starting Game");
 	}
 
 	@Override
-	public void StartingMulligan(Game g, Player p, Card[] hand) {
+	public void startingMulligan(Game g, Player p, Card[] hand) {
 		System.out.println("Mulligan Hand: " + cardsToString(hand));
 	}
 
 	@Override
-	public boolean KeepCard(Game g, Player p, Card card) {
+	public boolean keepCard(Game g, Player p, Card card) {
 		return getBooleanChoice("Keep " + card.toString());
 	}
 
 	@Override
-	public void StartingHand(Game g, Player p, Card[] hand) {
+	public void startingHand(Game g, Player p, Card[] hand) {
 		System.out.println("Starting Hand: " + cardsToString(hand));
 	}
 
 	@Override
-	public void StartingTurn(Game g, Player p, int turn, Card c) {
+	public void startingTurn(Game g, Player p, int turn, Card c) {
 		System.out.println("Starting Turn " + turn / 2);
 	}
 
 	@Override
-	public PlayerAction NextAction(Game g, Player p, int turn) {
+	public PlayerAction nextAction(Game g, Player p, int turn) {
 
 		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, Overloaded Mana: %d", p.getManaCrystals(), p.getAvaliableMana(), p.getLockedMana(), p.getOverloadedMana()));
 		
 		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
-		CardPlayability[] play = {CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.YES};
-		
-		// Check to see if any cards are playable and if they are WITH_EFFECT
-		for (int k = 0; k < p.getHand().length; k++) {
-			switch (p.getHand()[k].getPlayabilityInCurrentState(g, p)) {
-			case WITH_EFFECT:
-				if (play[0] != CardPlayability.WITH_EFFECT) {
-					play[0] = CardPlayability.WITH_EFFECT;
-				}
-				break;
-			case YES:
-				if (play[0] == CardPlayability.NO) {
-					play[0] = CardPlayability.YES;
-				}
-				break;
-			case NO:
-				break;
-			default:
-				break;
-			}
-		}
+		CardPlayability[] play = {p.canPlayCard(g), CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.YES};
 		
 		// Check to see if hero power is playable / unused
 		
@@ -114,7 +94,7 @@ public class HumanPlayer implements PlayerInterface {
 	}
 
 	@Override
-	public int CardToPlayHandIndex(Game g, Player p, int turn) {
+	public int cardToPlayHandIndex(Game g, Player p, int turn) {
 		String[] options = new String[p.getHand().length];
 		CardPlayability[] play = new CardPlayability[p.getHand().length];
 
@@ -203,7 +183,7 @@ public class HumanPlayer implements PlayerInterface {
 	}
 
 	@Override
-	public int WhereToPlayCardIndex(Game g, Player p, int turn) {
+	public int whereToPlayCardIndex(Game g, Player p, int turn) {
 		System.out.println("Board: " + cardsToString(p.getBoard()));
 		if (p.getBoard().length == 0) {
 			return 0;

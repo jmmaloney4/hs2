@@ -6,16 +6,16 @@ package hs;
 
 public interface PlayerInterface {
 	
-	void StartingGame(Game g);
+	void startingGame(Game g);
 
-	void StartingMulligan(Game g, Player p, Card[] hand);
-	boolean KeepCard(Game g, Player p, Card c);
-	void StartingHand(Game g, Player p, Card[] hand);
+	void startingMulligan(Game g, Player p, Card[] hand);
+	boolean keepCard(Game g, Player p, Card c);
+	void startingHand(Game g, Player p, Card[] hand);
 
-	void StartingTurn(Game g, Player p, int turn, Card c);
-	PlayerAction NextAction(Game g, Player p, int turn);
+	void startingTurn(Game g, Player p, int turn, Card c);
+	PlayerAction nextAction(Game g, Player p, int turn);
 
-	int CardToPlayHandIndex(Game g, Player p, int turn);
-	int WhereToPlayCardIndex(Game g, Player p, int turn);
+	int cardToPlayHandIndex(Game g, Player p, int turn);
+	int whereToPlayCardIndex(Game g, Player p, int turn);
 
 }

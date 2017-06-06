@@ -152,18 +152,20 @@ public class Player {
 		this.board = new Card[0];
 	}
 
-	public void StartGame(Game g, boolean p1) {
-		iface.StartingGame(g);
+	public void startGame(Game g, boolean p1) {
+		iface.startingGame(g);
 
+		mana = 0;
+		usedMana = 0;
 		manaCrystals = 0;
+		bonusMana = 0;
 		lockedMana = 0;
 		overloadedMana = 0;
-		mana = 0;
 		
 		usedHeroPower = false;
 
-		hand = deck.MulliganHand(p1);
-		iface.StartingMulligan(g, this, hand);
+		hand = deck.mulliganHand(p1);
+		iface.startingMulligan(g, this, hand);
 		
 		/*
 		for (int k = 0; k < hand.length; k++) {
@@ -181,27 +183,30 @@ public class Player {
 			hand[hand.length - 1] = new TheCoin();
 		}
 
-		iface.StartingHand(g, this, hand);
+		iface.startingHand(g, this, hand);
 	}
 
-	public void TakeTurn(Game g, int turn) {
+	public void takeTurn(Game g, int turn) {
+		manaNextTurn();
 		
-		Card c = deck.Draw();
-		iface.StartingTurn(g, this, turn, c);
+		Card c = deck.draw();
+		iface.startingTurn(g, this, turn, c);
 
 		while (true) {
-			PlayerAction action = iface.NextAction(g, this, turn);
+			PlayerAction action = iface.nextAction(g, this, turn);
 			
 			switch (action) {
 			case PLAY_CARD:
-				int i = iface.CardToPlayHandIndex(g, this, turn);
+				int i = iface.cardToPlayHandIndex(g, this, turn);
 				if (getHand()[i].getPlayabilityInCurrentState(g, this) == CardPlayability.NO) {
 					throw new IllegalStateException("Can't play this card " + getHand()[i].toString());
 				}
 				
 				System.out.println("Playing " + getHand()[i].toString());
 
-				insertCardOntoBoard(pullCardFromHand(i), iface.WhereToPlayCardIndex(g, this, turn));
+				Card cp = pullCardFromHand(i);
+				insertCardOntoBoard(cp, iface.whereToPlayCardIndex(g, this, turn));
+				spendMana(cp.getCost());
 				
 				break;
 			case END_TURN:
@@ -216,5 +221,36 @@ public class Player {
 				break;
 			} 
 		}
+	}
+	
+	CardPlayability canPlayCard(Game g) {
+		CardPlayability rv = CardPlayability.NO;
+		
+		loop:
+		for (int k = 0; k < getHand().length; k++) {
+			switch (getHand()[k].getPlayabilityInCurrentState(g, this)) {
+			case WITH_EFFECT:
+				if (rv != CardPlayability.WITH_EFFECT) {
+					rv = CardPlayability.WITH_EFFECT;
+				}
+				break loop;
+			case YES:
+				if (rv == CardPlayability.NO) {
+					rv = CardPlayability.YES;
+				}
+				break;
+			case NO:
+				break;
+			default:
+				break;
+			}
+		}
+		
+		return rv;
+	}
+	
+	CardPlayability CanUseHeroPower(Game g) {
+		return null;
+		
 	}
 }

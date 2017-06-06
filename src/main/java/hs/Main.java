@@ -20,7 +20,7 @@ public class Main {
         Player p2 = new Player(pi2, d2, CardClass.MAGE);
         
         Game game = new Game(p1, p2);
-        game.Start();
+        game.start();
     }
 
 }
