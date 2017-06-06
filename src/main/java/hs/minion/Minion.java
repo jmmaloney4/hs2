@@ -13,6 +13,8 @@ public abstract class Minion extends Card {
 	int maxHealth;
 	int health;
 	
+	int timesAttacked;
+	
 	static int Attack;
 	static int Health;
 	static MinionRace Race;
@@ -44,5 +46,13 @@ public abstract class Minion extends Card {
 	@Override
 	public String toString() {
 		return String.format("%s (%d Mana, %d/%d)", getName(), getCost(), getAttack(), getHealth());
+	}
+	
+	public boolean canAttack() {
+		if (timesAttacked == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

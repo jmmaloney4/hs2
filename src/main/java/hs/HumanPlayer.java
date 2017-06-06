@@ -61,10 +61,7 @@ public class HumanPlayer implements PlayerInterface {
 		System.out.println(String.format("Mana Crystals: %d, Mana Avaliable: %d, Locked Mana: %d, Overloaded Mana: %d", p.getManaCrystals(), p.getAvaliableMana(), p.getLockedMana(), p.getOverloadedMana()));
 		
 		String[] options = {"Play Card", "Use Hero Power", "Minion Combat", "Hero Combat", "End Turn"};
-		CardPlayability[] play = {p.canPlayCard(g), CardPlayability.NO, CardPlayability.NO, CardPlayability.NO, CardPlayability.YES};
-		
-		// Check to see if hero power is playable / unused
-		
+		CardPlayability[] play = {p.canPlayCard(g), p.canUseHeroPower(g), p.canDoMinionCombat(g), p.canDoHeroCombat(g), CardPlayability.YES};
 		
 		// Check to see if End Turn should be YES (green, no more possible actions) 
 		// or WITH_EFFECT (yellow, still more actions)
