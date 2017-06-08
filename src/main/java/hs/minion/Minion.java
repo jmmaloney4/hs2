@@ -13,6 +13,7 @@ public abstract class Minion extends Card {
 	int maxHealth;
 	int health;
 
+	boolean playedThisTurn;
 	int timesAttacked;
 
 	static int Attack;
@@ -52,7 +53,7 @@ public abstract class Minion extends Card {
 	}
 
 	public boolean canAttack() {
-		if (timesAttacked == 0) {
+		if (timesAttacked == 0 && !playedThisTurn) {
 			return true;
 		} else {
 			return false;

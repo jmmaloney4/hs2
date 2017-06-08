@@ -4,6 +4,11 @@
 
 package hs;
 
+import java.util.Arrays;
+
+import event.Event;
+import event.Listener;
+
 public class Game {
 
 	Player p1;
@@ -21,11 +26,6 @@ public class Game {
 		p1.startGame(this, true);
 		p2.startGame(this, false);
 
-		String[] op = { "Hello, World0", "Hello, World1", "Hello, World2" };
-		CardPlayability[] p = { CardPlayability.NO, CardPlayability.YES, CardPlayability.WITH_EFFECT };
-
-		HumanPlayer.getOptionChoice(op, p);
-
 		turn = 0;
 
 		while (true) {
@@ -35,5 +35,13 @@ public class Game {
 			turn++;
 		}
 	}
+	
+	Player getPlayer1() {
+		return p1;
+	}
 
+	Player getPlayer2() {
+		return p2;
+	}
+	
 }

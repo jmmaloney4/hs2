@@ -4,7 +4,10 @@
 
 package hs;
 
-public abstract class Card {
+import event.Event;
+import event.Listener;
+
+public abstract class Card implements Listener {
 
 	static String Name;
 	static int Cost;
@@ -22,6 +25,7 @@ public abstract class Card {
 
 	public abstract CardClass getCardClass();
 
+	// Use instanceof instead
 	public abstract CardType getType();
 
 	public Card() {
@@ -43,5 +47,9 @@ public abstract class Card {
 		} else {
 			return CardPlayability.NO;
 		}
+	}
+	
+	public void listen(Event e) {
+		
 	}
 }

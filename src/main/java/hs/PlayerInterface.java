@@ -22,4 +22,6 @@ public interface PlayerInterface {
 
 	int whereToPlayCardIndex(Game g, Player p, int turn);
 
+	void endingTurn(Game g, Player p, int turn);
+
 }

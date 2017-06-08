@@ -204,10 +204,12 @@ public class Player {
 
 				break;
 			case END_TURN:
+				iface.endingTurn(g, this, turn);
 				return;
 			case HERO_COMBAT:
 				break;
 			case MINION_COMBAT:
+				
 				break;
 			case USE_HERO_POWER:
 				break;

@@ -197,4 +197,9 @@ public class HumanPlayer implements PlayerInterface {
 
 		return getOptionChoice(options, null);
 	}
+
+	@Override
+	public void endingTurn(Game g, Player p, int turn) {
+
+	}
 }
