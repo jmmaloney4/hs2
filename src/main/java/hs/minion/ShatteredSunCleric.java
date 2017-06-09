@@ -1,6 +1,7 @@
 package hs.minion;
 
 import hs.CardClass;
+import hs.CardSet;
 
 public class ShatteredSunCleric extends Minion {
 
@@ -11,6 +12,7 @@ public class ShatteredSunCleric extends Minion {
 	static final MinionRace Race = MinionRace.NEUTRAL;
 	static final int Attack = 3;
 	static final int Health = 2;
+	static CardSet Set = CardSet.BASIC;
 
 	@Override
 	public String getName() {
@@ -41,5 +43,9 @@ public class ShatteredSunCleric extends Minion {
 	public int getNormalAttack() {
 		return Attack;
 	}
-
+	
+	@Override
+	public CardSet getCardSet() {
+		return Set;
+	}
 }

@@ -5,6 +5,7 @@
 package hs.spell;
 
 import hs.CardClass;
+import hs.CardSet;
 
 public class TheCoin extends Spell {
 
@@ -12,6 +13,7 @@ public class TheCoin extends Spell {
 	static final int Cost = 0;
 	static final CardClass Class = hs.CardClass.NEUTRAL;
 	static final String Text = "Gain 1 Mana Crystal this turn only.";
+	static CardSet Set = CardSet.BASIC;
 
 	@Override
 	public String getName() {
@@ -31,5 +33,10 @@ public class TheCoin extends Spell {
 	@Override
 	public CardClass getCardClass() {
 		return Class;
+	}
+	
+	@Override
+	public CardSet getCardSet() {
+		return Set;
 	}
 }

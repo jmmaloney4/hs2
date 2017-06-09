@@ -14,12 +14,6 @@ import hs.weapon.Weapon;
 
 public abstract class Card implements Listener {
 
-	static String Name;
-	static int Cost;
-	static String Text;
-	static CardClass Class;
-	static CardType Type;
-
 	int cost;
 
 	public abstract String getName();
@@ -30,6 +24,8 @@ public abstract class Card implements Listener {
 
 	public abstract CardClass getCardClass();
 
+	public abstract CardSet getCardSet();
+	
 	public CardType getType() {
 		if (this instanceof Minion) {
 			return CardType.MINION;

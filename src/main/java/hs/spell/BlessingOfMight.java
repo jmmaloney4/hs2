@@ -5,6 +5,7 @@
 package hs.spell;
 
 import hs.CardClass;
+import hs.CardSet;
 import hs.CardType;
 
 public class BlessingOfMight extends Spell {
@@ -13,7 +14,8 @@ public class BlessingOfMight extends Spell {
 	static final int Cost = 1;
 	static final CardClass Class = hs.CardClass.PALADIN;
 	static final String Text = "Give a minion +3 attack.";
-
+	static CardSet Set = CardSet.BASIC;
+	
 	@Override
 	public String getName() {
 		return Name;
@@ -38,5 +40,9 @@ public class BlessingOfMight extends Spell {
 	public CardType getType() {
 		return CardType.SPELL;
 	}
-
+	
+	@Override
+	public CardSet getCardSet() {
+		return Set;
+	}
 }

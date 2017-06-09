@@ -1,6 +1,7 @@
 package hs.minion;
 
 import hs.CardClass;
+import hs.CardSet;
 
 public class SenjinShieldmasta extends Minion {
 
@@ -11,6 +12,7 @@ public class SenjinShieldmasta extends Minion {
 	static final MinionRace Race = MinionRace.NEUTRAL;
 	static final int Attack = 3;
 	static final int Health = 5;
+	static CardSet Set = CardSet.BASIC;
 
 	@Override
 	public String getName() {
@@ -42,4 +44,8 @@ public class SenjinShieldmasta extends Minion {
 		return Attack;
 	}
 
+	@Override
+	public CardSet getCardSet() {
+		return Set;
+	}
 }

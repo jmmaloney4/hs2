@@ -5,6 +5,7 @@
 package hs.hero;
 
 import hs.CardClass;
+import hs.CardSet;
 import hs.CardType;
 
 public class Fireblast extends HeroPower {
@@ -14,6 +15,7 @@ public class Fireblast extends HeroPower {
 	static String Text = "Deal 1 Damage.";
 	static CardClass Class = CardClass.MAGE;
 	static CardType Type;
+	static CardSet Set = CardSet.BASIC;
 
 	@Override
 	public String getName() {
@@ -38,6 +40,11 @@ public class Fireblast extends HeroPower {
 	@Override
 	public CardType getType() {
 		return Type;
+	}
+
+	@Override
+	public CardSet getCardSet() {
+		return Set;
 	}
 
 }
