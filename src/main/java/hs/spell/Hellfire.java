@@ -1,6 +1,7 @@
 package hs.spell;
 
 import hs.CardClass;
+import hs.CardSet;
 
 public class Hellfire extends Spell {
 
@@ -8,6 +9,7 @@ public class Hellfire extends Spell {
 	static final int Cost = 4;
 	static final CardClass Class = hs.CardClass.WARLOCK;
 	static final String Text = "Deal 3 damage to ALL chatacters.";
+	static CardSet Set = CardSet.BASIC;
 	
 	@Override
 	public String getName() {
@@ -33,4 +35,9 @@ public class Hellfire extends Spell {
 		return null;
 	}
 
+	@Override
+	public CardSet getCardSet() {
+		return Set;
+	}
+	
 }

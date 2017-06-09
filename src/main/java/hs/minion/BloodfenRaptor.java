@@ -5,6 +5,7 @@
 package hs.minion;
 
 import hs.CardClass;
+import hs.CardSet;
 
 public class BloodfenRaptor extends Minion {
 
@@ -15,6 +16,7 @@ public class BloodfenRaptor extends Minion {
 	static final MinionRace Race = MinionRace.BEAST;
 	static final int Attack = 3;
 	static final int Health = 2;
+	static CardSet Set = CardSet.BASIC;
 
 	@Override
 	public String getName() {
@@ -44,5 +46,10 @@ public class BloodfenRaptor extends Minion {
 	@Override
 	public int getNormalAttack() {
 		return Attack;
+	}
+	
+	@Override
+	public CardSet getCardSet() {
+		return Set;
 	}
 }
