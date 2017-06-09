@@ -2,15 +2,15 @@ package hs.minion;
 
 import hs.CardClass;
 
-public class MurlocTidehunter extends Minion {
+public class RaidLeader extends Minion {
 
-	static final String Name = "Murloc Tidehunter";
-	static final int Cost = 2;
+	static final String Name = "Raid Leader";
+	static final int Cost = 3;
 	static final CardClass Class = CardClass.NEUTRAL;
-	static final String Text = "Battlecry: Summon a 1/1 Murloc Scout.";
-	static final MinionRace Race = MinionRace.MURLOC;
+	static final String Text = "Your other minions have +1 Attack.";
+	static final MinionRace Race = MinionRace.NEUTRAL;
 	static final int Attack = 2;
-	static final int Health = 1;
+	static final int Health = 2;
 
 	@Override
 	public String getName() {
@@ -41,4 +41,5 @@ public class MurlocTidehunter extends Minion {
 	public int getNormalAttack() {
 		return Attack;
 	}
+
 }
