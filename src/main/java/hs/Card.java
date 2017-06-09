@@ -6,6 +6,11 @@ package hs;
 
 import event.Event;
 import event.Listener;
+import hs.hero.Hero;
+import hs.hero.HeroPower;
+import hs.minion.Minion;
+import hs.spell.Spell;
+import hs.weapon.Weapon;
 
 public abstract class Card implements Listener {
 
@@ -25,8 +30,21 @@ public abstract class Card implements Listener {
 
 	public abstract CardClass getCardClass();
 
-	// Use instanceof instead
-	public abstract CardType getType();
+	public CardType getType() {
+		if (this instanceof Minion) {
+			return CardType.MINION;
+		} else if (this instanceof Spell) {
+			return CardType.SPELL;
+		} else if (this instanceof Weapon) {
+			return CardType.WEAPON;
+		} else if (this instanceof HeroPower) {
+			return CardType.HERO_POWER;
+		} else if (this instanceof Hero) {
+			return CardType.HERO;
+		} else {
+			throw new IllegalStateException("Unknown card type");
+		}
+	}
 
 	public Card() {
 		cost = getNormalCost();
@@ -38,7 +56,7 @@ public abstract class Card implements Listener {
 
 	@Override
 	public String toString() {
-		return String.format("%s (%d Mana)", getName(), getCost());
+		return String.format("%s (%d Mana) [%s]", getName(), getCost(), getText());
 	}
 
 	public CardPlayability getPlayabilityInCurrentState(Game g, Player p) {
@@ -48,8 +66,8 @@ public abstract class Card implements Listener {
 			return CardPlayability.NO;
 		}
 	}
-	
+
 	public void listen(Event e) {
-		
+
 	}
 }

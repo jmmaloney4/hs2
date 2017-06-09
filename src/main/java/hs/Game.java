@@ -4,11 +4,6 @@
 
 package hs;
 
-import java.util.Arrays;
-
-import event.Event;
-import event.Listener;
-
 public class Game {
 
 	Player p1;
@@ -35,7 +30,7 @@ public class Game {
 			turn++;
 		}
 	}
-	
+
 	Player getPlayer1() {
 		return p1;
 	}
@@ -43,5 +38,5 @@ public class Game {
 	Player getPlayer2() {
 		return p2;
 	}
-	
+
 }

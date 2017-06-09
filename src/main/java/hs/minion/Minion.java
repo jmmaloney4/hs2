@@ -5,7 +5,6 @@
 package hs.minion;
 
 import hs.Card;
-import hs.CardType;
 
 public abstract class Minion extends Card {
 
@@ -43,13 +42,8 @@ public abstract class Minion extends Card {
 	}
 
 	@Override
-	public CardType getType() {
-		return CardType.MINION;
-	}
-
-	@Override
 	public String toString() {
-		return String.format("%s (%d Mana, %d/%d)", getName(), getCost(), getAttack(), getHealth());
+		return String.format("%s (%d Mana, %d/%d) [%s]", getName(), getCost(), getAttack(), getHealth(), getText());
 	}
 
 	public boolean canAttack() {

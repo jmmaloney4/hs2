@@ -209,7 +209,7 @@ public class Player {
 			case HERO_COMBAT:
 				break;
 			case MINION_COMBAT:
-				
+
 				break;
 			case USE_HERO_POWER:
 				break;
